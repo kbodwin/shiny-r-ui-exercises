@@ -7,7 +7,7 @@
 #' @noRd
 mod_poke_move_ui <- function(id) {
   ns <- NS(id)
-  uiOutput(ns("poke_moves"), class = "col-sm-12")
+  uiOutput(ns("poke_moves"))
 }
 
 #' poke_move Server Functions
@@ -19,17 +19,18 @@ mod_poke_move_server <- function(id, selected) {
     ns <- session$ns
 
     # generate the card
-    output$poke_moves <- renderPrint({
+    output$poke_moves <- renderUI({
       req(!is.null(selected()))
 
       moves <- selected()$moves
 
-      # WORKSHOP TODO
-      # Process pokemon moves. This is a list so you
-      # can leverage lapply to treat each move:
-      # lapply(seq_along(moves), FUN = function(i) {
-      #   # Process each move ...
-      # })
+      panels <- purrr::map(moves, process_move_section)
+
+      accordion(
+        multiple = TRUE,
+        !!!panels
+      )
     })
   })
 }
+

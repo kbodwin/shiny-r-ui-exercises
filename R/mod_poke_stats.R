@@ -8,9 +8,12 @@
 mod_poke_stats_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    lapply(other_stats_names(), function(stat) {
+    nav_panel(
+      "Basic Stats",
+      lapply(other_stats_names(), function(stat) {  ##content
       uiOutput(ns(stat))
-    }),
+    })
+    ),
     uiOutput(ns("poke_stats_card"))
   )
 }

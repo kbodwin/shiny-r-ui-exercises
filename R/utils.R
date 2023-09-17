@@ -187,12 +187,31 @@ select_pokemon <- function(selected) {
   # WORKSHOP TODO
   # Find a way to make this function elegantly failing
   # and warn the end user ...
-  res <- sample(c(FALSE, TRUE), 1)
+  res <- sample(c(TRUE, TRUE), 1)
   if (!res) {
     stop("Could not connect to the Pokemon API ...")
   } else {
     poke_data[[selected]]
   }
+}
+
+
+
+#' Helper function to process moves into accordion item
+#'
+#' @noRd
+
+process_move_section <- function(move) {
+
+  name <- move$name %>%
+    stringr::str_replace("\\-", " ") %>%
+    stringr::str_to_title()
+
+  accordion_panel(
+    title = name,
+    move
+  )
+
 }
 
 # R CMD check ...

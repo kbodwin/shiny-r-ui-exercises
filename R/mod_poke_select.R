@@ -27,7 +27,7 @@ mod_poke_select_ui <- function(id) {
     bs_icon("hand-index-fill"),
     pickerInput(
       inputId = ns("selected"),
-      width = "10%",
+      width = "100%",
       options = list(style = "btn-primary"),
       multiple = FALSE,
       choices = poke_names,
